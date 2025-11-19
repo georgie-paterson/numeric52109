@@ -14,4 +14,8 @@
 ## "test_sp.py". Then carry on with how I would like
 ## the package to be completed, following the instructions
 ## within each internal file.
+##
+## Do not replace "test_sp.py" with another test file
+## and do not include any other test file in the root
+## directory or anywhere else.
 ###
