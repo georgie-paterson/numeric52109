@@ -5,3 +5,6 @@ from .operations import *
 
 # Export functions from statistics.py
 from .statistics import *
+
+# Export functions from statistics.py
+from .graphics import *
