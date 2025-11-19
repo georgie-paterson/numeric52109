@@ -23,14 +23,6 @@
 ##    numpy and matplotlib packages are not installed.
 ##
 
-"""
-A single-file module that:
-1) Computes mean, median, and standard deviation.
-2) Pretty prints results.
-3) Plots a histogram with mean/median marked.
-4) Validates input (list → numpy array).
-5) Handles missing numpy/matplotlib by raising clear errors.
-"""
 
 # ----------------------------
 # IMPORTS (with fail messages)
@@ -87,31 +79,3 @@ def pretty_print_stats(data):
     print("==========================\n")
 
 
-# ----------------------------
-# GRAPHICS FUNCTION
-# ----------------------------
-
-def plot_histogram(data):
-    """Plot a histogram of the data with mean and median marked."""
-
-    if plt is None:
-        raise ImportError("Matplotlib is required for plotting but is not installed.")
-
-    data = _ensure_array(data)
-    mean_val, median_val, _ = compute_stats(data)
-
-    plt.figure(figsize=(8, 5))
-    plt.hist(data, bins=20, alpha=0.7, edgecolor='black')
-
-    plt.axvline(mean_val, color='red', linestyle='--', linewidth=2,
-                label=f"Mean = {mean_val:.2f}")
-    plt.axvline(median_val, color='green', linestyle='-', linewidth=2,
-                label=f"Median = {median_val:.2f}")
-
-    plt.title("Histogram with Mean and Median")
-    plt.xlabel("Values")
-    plt.ylabel("Frequency")
-    plt.legend()
-    plt.grid(alpha=0.3)
-
-    plt.show()
