@@ -64,11 +64,53 @@ def exp(x):
     """Return e raised to the power x."""
     return math.exp(x)
 
+def tan(x):
+    """Return tangent of x (in radians)."""
+    return math.tan(x)
+
+def sqrt(x):
+    """Return square root of x."""
+    return math.sqrt(x)
+
+def power(a, b):
+    """Return a raised to the power b."""
+    return math.pow(a, b)
+
+def degrees(x):
+    """Convert radians to degrees."""
+    return math.degrees(x)
+
+def radians(x):
+    """Convert degrees to radians."""
+    return math.radians(x)
+
+def factorial(n):
+    """Return n! (factorial)."""
+    if n < 0:
+        raise ValueError("Factorial is not defined for negative numbers.")
+    return math.factorial(int(n))
+
+def log10(x):
+    """Return base-10 logarithm."""
+    return math.log10(x)
+
+def sinh(x):
+    """Return hyperbolic sine."""
+    return math.sinh(x)
+
+def cosh(x):
+    """Return hyperbolic cosine."""
+    return math.cosh(x)
+
+def tanh(x):
+    """Return hyperbolic tangent."""
+    return math.tanh(x)
+
 # ------------------------
 # INTERFACE FUNCTION
 # ------------------------
 
-def interface():
+def calculator():
     """
     Interface function:
     - Prompts user for input repeatedly
@@ -76,69 +118,82 @@ def interface():
     - Handles exceptions
     - Exits when user types 'exit'
     """
-    
+
     print("Welcome to the calculator!")
-    print("Available operations: add, subtract, multiply, divide, sin, cos, log, exp")
+    print("Available operations: add, subtract, multiply, divide, "
+          "sin, cos, tan, log, log10, exp, sqrt, power, degrees, radians, "
+          "factorial, sinh, cosh, tanh")
     print("Type 'exit' to quit.\n")
 
     while True:
-        user_input = input("Enter command (e.g, add 3 5): ").strip()
+        user_input = input("Enter command (e.g., add 3 5): ").strip()
 
         if user_input.lower() == "exit":
             print("Goodbye!")
             break
 
         try:
-            # Split input into parts
             parts = user_input.split()
             operation = parts[0].lower()
 
             # -------------------------
             # BINARY OPERATIONS (2 args)
             # -------------------------
-            if operation in ("add", "subtract", "multiply", "divide"):
+            binary_ops = {
+                "add": add,
+                "subtract": subtract,
+                "multiply": multiply,
+                "divide": divide,
+                "power": power
+            }
+
+            if operation in binary_ops:
                 if len(parts) != 3:
                     raise ValueError("Binary operations require two numbers.")
 
                 a = float(parts[1])
                 b = float(parts[2])
 
-                if operation == "add":
-                    result = add(a, b)
-                elif operation == "subtract":
-                    result = subtract(a, b)
-                elif operation == "multiply":
-                    result = multiply(a, b)
-                elif operation == "divide":
-                    result = divide(a, b)
-
+                result = binary_ops[operation](a, b)
                 print("Result:", result)
+                continue
 
             # -------------------------
             # UNARY OPERATIONS (1 arg)
             # -------------------------
-            elif operation in ("sin", "cos", "log", "exp"):
+            unary_ops = {
+                "sin": sin,
+                "cos": cos,
+                "tan": tan,
+                "log": log,
+                "log10": log10,
+                "exp": exp,
+                "sqrt": sqrt,
+                "degrees": degrees,
+                "radians": radians,
+                "factorial": factorial,
+                "sinh": sinh,
+                "cosh": cosh,
+                "tanh": tanh
+            }
+
+            if operation in unary_ops:
                 if len(parts) != 2:
                     raise ValueError("This operation requires exactly one number.")
 
                 x = float(parts[1])
-
-                if operation == "sin":
-                    result = sin(x)
-                elif operation == "cos":
-                    result = cos(x)
-                elif operation == "log":
-                    result = log(x)
-                elif operation == "exp":
-                    result = exp(x)
-
+                result = unary_ops[operation](x)
                 print("Result:", result)
+                continue
 
-            else:
-                print("Unknown operation:", operation)
+            # -------------------------
+            # UNKNOWN OPERATION
+            # -------------------------
+            print("Unknown operation:", operation)
 
-        # Catch *any* error and continue loop
         except Exception as e:
             print("Error:", e)
             print("Please try again.\n")
 
+if __name__ == "__main__":
+    calculator()
